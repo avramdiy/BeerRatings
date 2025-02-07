@@ -12,6 +12,16 @@
 
 ## 2nd Commit
 
+- Filtered the code to remove the "index" "beer/beerId" "beer/brewerId" "beer/name" "user/ageInSeconds" "user/birthdayRaw" "user/birthdayUnix" "user/gender" "user/profileName" "review/timeStruct" "review/timeUnix" "review/text"
+
+- Retrieved every unique value listed in beer/style and printed in a separate list.
+
+- Cleaned "beer/style" to show types of alcohol, without descriptive confusion.
+
+- Terms shown: Ale, Altbier, Amber, Barleywine, Beer, Berliner, Bock, Braggot, Brown, Doppelbock, Dunkel, Dunkelweizen, Eisbock, Hefeweizen, IPA, Lager, Lambic, Maibock, Oatmeal, Pilsener, Pilsner, Porter, Quadrupel, Rauchbier, Saison, Schwarzbier, Scotch, Stout, Tripel, Vienna, Weissbier, Weizenbock, Wheatwine, Witbier
+
+- Adjusted uniformity for the difference between Pilsener and Pilsner. Pilsner is the only unique value now.
+
 ## 3rd Commit
 
 ## 4th Commit
