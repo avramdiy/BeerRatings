@@ -197,6 +197,68 @@ def average_aroma_chart():
     except Exception as e:
         return f"An error occurred: {e}", 500
 
+@app.route('/average_abv_chart', methods=['GET'])
+def average_abv_chart():
+    try:
+        # Path to the CSV file
+        csv_path = r'C:\\Users\\Ev\\Desktop\\TRG Week 10\\beer.csv'
+
+        # Read the CSV file into a DataFrame
+        df = pd.read_csv(csv_path)
+
+        # Clean the beer/style column
+        allowed_words = {
+            "Ale", "Altbier", "Amber", "Barleywine", "Beer", "Berliner", "Bière", "Bock",
+            "Braggot", "Brown", "Doppelbock", "Dunkel", "Dunkelweizen", "Eisbock", "Hefeweizen",
+            "IPA", "Kölsch", "Lager", "Lambic", "Maibock", "Märzen", "Oatmeal", "Pilsener",
+            "Pilsner", "Porter", "Quadrupel", "Rauchbier", "Saison", "Schwarzbier", "Scotch",
+            "Stout", "Tripel", "Vienna", "Weissbier", "Weizenbock", "Wheatwine", "Witbier"
+        }
+
+        if 'beer/style' in df.columns:
+            def clean_style(style):
+                words = style.split()
+                cleaned = [word for word in words if word in allowed_words]
+                # Replace 'Pilsener' with 'Pilsner'
+                cleaned = ["Pilsner" if word == "Pilsener" else word for word in cleaned]
+                return " ".join(cleaned)
+
+            df['beer/style'] = df['beer/style'].astype(str).apply(clean_style)
+
+        # Calculate average beer/abv per beer/style
+        if 'beer/style' in df.columns and 'beer/ABV' in df.columns:
+            df['beer/ABV'] = pd.to_numeric(df['beer/ABV'], errors='coerce')
+            avg_reviews = df.groupby('beer/style')['beer/ABV'].mean().dropna()
+
+            # Create the bar chart
+            plt.figure(figsize=(10, 6))
+            avg_reviews.sort_values(ascending=False).plot(kind='bar', color='skyblue')
+            plt.title('Average ABV per Beer Style')
+            plt.xlabel('Beer Style')
+            plt.ylabel('ABV')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+
+            # Save the plot to a BytesIO object
+            img = io.BytesIO()
+            plt.savefig(img, format='png')
+            img.seek(0)
+
+            # Encode the image to base64 to embed in HTML
+            plot_url = base64.b64encode(img.getvalue()).decode()
+            plt.close()
+
+            # Return the image as HTML
+            return f'<img src="data:image/png;base64,{plot_url}" />'
+
+        else:
+            return "Required columns are missing in the dataset.", 400
+
+    except FileNotFoundError:
+        return "File not found. Please check the file path.", 404
+    except Exception as e:
+        return f"An error occurred: {e}", 500
+
 if __name__ == '__main__':
     # Run the Flask app
     app.run(debug=True)

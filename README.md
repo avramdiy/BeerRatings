@@ -35,3 +35,7 @@
 - Route created : /average_aroma_chart
 
 ## 5th Commit
+
+- In a bar chart, I want to visualize the average "beer/ABV" per "beer/style", as a bar chart.
+
+- Route created : /average_abv_chart
