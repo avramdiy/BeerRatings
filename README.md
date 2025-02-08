@@ -24,6 +24,10 @@
 
 ## 3rd Commit
 
+- In a bar chart, I want to visualize the average "review/overall" per "beer/style", as a bar chart.
+
+- Route created : /avverage_review_chart
+
 ## 4th Commit
 
 ## 5th Commit
