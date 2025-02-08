@@ -26,8 +26,12 @@
 
 - In a bar chart, I want to visualize the average "review/overall" per "beer/style", as a bar chart.
 
-- Route created : /avverage_review_chart
+- Route created : /average_review_chart
 
 ## 4th Commit
+
+- In a bar chart, I want to visualize the average "review/aroma" per "beer/style", as a bar chart.
+
+- Route created : /average_aroma_chart
 
 ## 5th Commit
